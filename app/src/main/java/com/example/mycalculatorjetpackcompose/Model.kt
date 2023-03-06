@@ -2,54 +2,52 @@ package com.example.mycalculatorjetpackcompose
 
 class Model {
 
-    private fun replaceN(string: String):String{
+    private fun replaceN(string: String): String {
+        val array = StringBuffer(string)
 
-        val array=StringBuffer(string)
-
-        if (array[0] =='-'){
-            array.setCharAt(0,'n')
-
+        if (array[0] == '-') {
+            array.setCharAt(0, 'n')
         }
 
-        var i=0
-        while (i <array.length){
+        var i = 0
+        while (i < array.length) {
 
-
-            if (array[i]=='-'){
-                //2+-3
-                if(array[i-1]=='+'  ||
-                    array[i-1]=='-' ||
-                    array[i-1]=='/'  ||
-                    array[i-1]=='*' ||
-                    array[i-1]=='('
-                        ){
-                    array.setCharAt(i,'n')
+            if (array[i] == '-') {
+                if (
+                    array[i - 1] == '+' ||
+                    array[i - 1] == '-' ||
+                    array[i - 1] == '/' ||
+                    array[i - 1] == '*' ||
+                    array[i - 1] == '('
+                ) {
+                    array.setCharAt(i, 'n')
                 }
-
             }
+
             i++
+
         }
 
         return array.toString()
 
     }
 
-    fun result(string: String):String{
-        val stringN=replaceN(string)
-        val postFix=InfixToPostfix().postFixConversion(stringN)
+    fun result(string: String): String {
+        val stringN = replaceN(string)
+        val postFix = InfixToPostFix().postFixConversion(stringN)
 
-        if (postFix == "Error"){
+        if (postFix == "Error") {
             return postFix
         }
         return try {
-            val evaluation=ArithmeticEvolution().evaluation(postFix)
+            val evaluation = ArithmeticEvaluation().evaluation(postFix)
             evaluation.toString()
-
-        }catch (e:java.lang.Exception){
-
+        } catch (e: Exception) {
             e.printStackTrace()
             "Error"
         }
 
+
     }
+
 }
