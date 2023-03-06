@@ -20,7 +20,8 @@ class Model {
                 if(array[i-1]=='+'  ||
                     array[i-1]=='-' ||
                     array[i-1]=='/'  ||
-                    array[i-1]=='*'
+                    array[i-1]=='*' ||
+                    array[i-1]=='('
                         ){
                     array.setCharAt(i,'n')
                 }
@@ -30,6 +31,25 @@ class Model {
         }
 
         return array.toString()
+
+    }
+
+    fun result(string: String):String{
+        val stringN=replaceN(string)
+        val postFix=InfixToPostfix().postFixConversion(stringN)
+
+        if (postFix == "Error"){
+            return postFix
+        }
+        return try {
+            val evaluation=ArithmeticEvolution().evaluation(postFix)
+            evaluation.toString()
+
+        }catch (e:java.lang.Exception){
+
+            e.printStackTrace()
+            "Error"
+        }
 
     }
 }

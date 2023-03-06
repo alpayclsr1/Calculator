@@ -17,8 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val infix="20+3*2(2-4)"
-            val result=InfixToPostfix().postFixConversion(infix)
+            val infix="((50)*(2))+2"
+
+            val result=Model().result(infix)
             println(result)
             MyCalculatorJetpackComposeTheme {
                 // A surface container using the 'background' color from the theme
